@@ -16,6 +16,27 @@ namespace MvcNetCoreEF2022.Controllers
             this.repo = repo;
         }
 
+        public IActionResult DoctoresSalario()
+        {
+            List<Doctor> doctores = this.repo.GetDoctores();
+            return View(doctores);
+        }
+
+        [HttpPost]
+        public IActionResult DoctoresSalario(int salario)
+        {
+            List<Doctor> doctores = this.repo.GetDoctoresSalario(salario);
+            if (doctores == null)
+            {
+                ViewData["MENSAJE"] = "No existen doctores con ese salario";
+                return View();
+            }
+            else
+            {
+                return View(doctores);
+            }
+        }
+
         public IActionResult DoctoresHospital(int idhospital)
         {
             List<Doctor> doctores = this.repo.GetDoctoresHospital(idhospital);

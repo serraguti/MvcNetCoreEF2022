@@ -22,5 +22,27 @@ namespace MvcNetCoreEF2022.Repositories
                            select datos;
             return consulta.ToList();
         }
+
+        public List<Doctor> GetDoctores()
+        {
+            var consulta = from datos in this.context.Doctores
+                           select datos;
+            return consulta.ToList();
+        }
+
+        public List<Doctor> GetDoctoresSalario(int salario)
+        {
+            var consulta = from datos in this.context.Doctores
+                           where datos.Salario >= salario
+                           select datos;
+            if (consulta.Count() == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return consulta.ToList();
+            }
+        }
     }
 }
